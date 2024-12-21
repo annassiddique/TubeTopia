@@ -1,4 +1,8 @@
 const authService = require("../services/userService");
+const {
+  sendReminderEmail,
+  sendEmailsToAllUsers,
+} = require("../services/emailService");
 
 const registerUser = async (req, res) => {
   try {
@@ -20,13 +24,21 @@ const loginUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await authService.getUserProfile(req.user.userId); 
+    const user = await authService.getUserProfile(req.user.userId);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+const sendVotingReminder = async (req, res) => {
+  try {
+    const response = await sendEmailsToAllUsers();
+    res.status(200).json({ message: "Reminder emails sent successfully!" });
+  } catch (error) {
+    console.error("Error in sendVotingReminder:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+};
 
-
-module.exports = { registerUser, loginUser, getUser};
+module.exports = { registerUser, loginUser, getUser, sendVotingReminder };

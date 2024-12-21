@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import VotingPage from "./pages/VotingPage";
+import RankPage from "./pages/RankPage";
+import VideoPage from "./pages/VideoPage";
+import SignUpPage from "./pages/SignUpPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import PrivateRoute from "./components/PrivateRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserInfo } from "./redux/slices/user/userAPI";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/vote" element={<VotingPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/video/:id" element={<VideoPage />} />
+        <Route path="/ranks" element={<RankPage />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <UserProfilePage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -52,7 +52,7 @@ const loginUser = async ({ email, password }) => {
 };
 
 const getUserProfile = async (userId) => {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).populate("videos");
   if (!user) {
     throw new Error("User not found");
   }

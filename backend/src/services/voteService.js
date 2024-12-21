@@ -2,13 +2,12 @@ const Video = require("../models/Video");
 const Vote = require("../models/Vote");
 const { calculateElo } = require("../utils/eloCalculator");
 
-
 const EloService = {
   calculateAndUpdateElo: async (videoA, videoB, winner) => {
     const { newEloA, newEloB } = calculateElo(
       videoA.elo_score,
       videoB.elo_score,
-      winner === 'A' ? 'A' : 'B'
+      winner === "A" ? "A" : "B"
     );
 
     await updateVideoElo(videoA, newEloA);
@@ -16,7 +15,6 @@ const EloService = {
     return { newEloA, newEloB };
   },
 };
-
 
 const VoteService = {
   recordVote: async (videoA, videoB, winnerId) => {
@@ -44,14 +42,11 @@ const VoteService = {
     return { videoA, videoB };
   },
 
-  getRankedVideos: async (page = 1, limit = 10) => {
+  getRankedVideos: async (page, limit) => {
     const skip = (page - 1) * limit;
-    const videos = await Video.find()
-      .sort({ elo_score: -1 })
-      .skip(skip)
-      .limit(limit);
-    return videos;
-  }
+
+    return await Video.find().sort({ elo_score: -1 }).skip(skip).limit(limit);
+  },
 };
 
 const updateVideoElo = async (video, newElo) => {
@@ -59,10 +54,15 @@ const updateVideoElo = async (video, newElo) => {
   await video.save();
 };
 
-
 const notifyClients = (io, videoAId, videoBId, newEloA, newEloB) => {
-    io.emit('rankUpdate', { videoAId, videoBId, newEloA, newEloB });
+
+  io.emit("voteUpdate", {
+    videoAId,
+    videoBId,
+    newEloA,
+    newEloB,
+    message: "Vote has been recorded and Elo scores updated",
+  });
 };
-  
 
 module.exports = { EloService, VoteService, notifyClients };
