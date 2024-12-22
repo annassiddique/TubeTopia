@@ -5,6 +5,7 @@ import VotingCard from "../components/VotingCard";
 import { fetchVideos, postVote, resetRounds } from "../redux/slices/vote/votesSlice";
 import Loading from "../components/Loading";
 import HoverEffectWrapper from "../components/HoverEffectWrapper";
+import Error from "../components/Error";
 
 const VotingPage = () => {
     const dispatch = useDispatch();
@@ -79,7 +80,7 @@ const VotingPage = () => {
     };
 
     if (status === "loading") return <Loading />;
-    if (status === "failed") return <div>Error: {error}</div>;
+    if (status === "failed") return <Error error={error}/>;
 
     return (
         <div className="min-h-[92.5vh] flex flex-col items-center justify-center mt-12 md:mt-0">

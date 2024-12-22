@@ -5,7 +5,7 @@ export const fetchVideos = createAsyncThunk(
   "votes/fetchVideos",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}votes/`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/votes/`);
       if (!response.ok) throw new Error("Failed to fetch videos");
       return await response.json();
     } catch (error) {
@@ -26,7 +26,7 @@ export const postVote = createAsyncThunk(
         videoBId: videoB._id,
         winner: voteData.winner, // 'A' or 'B' based on user vote
       };
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}votes/`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/votes/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(votePayload),

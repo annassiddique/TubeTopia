@@ -19,7 +19,7 @@ const RankPage = () => {
         try {
             setLoading(true);
             const response = await axios.get(
-                `${import.meta.env.VITE_BACKEND_BASE_URL}votes/rankings?page=${page}&limit=${itemsPerPage}`
+                `${import.meta.env.VITE_BACKEND_BASE_URL}/votes/rankings?page=${page}&limit=${itemsPerPage}`
             );
 
             const { videos, totalPages } = response.data;

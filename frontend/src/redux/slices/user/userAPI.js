@@ -6,7 +6,7 @@ export const fetchUserInfo = createAsyncThunk(
     try {
       const token = localStorage.getItem("authToken"); // Retrieve token from localStorage
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}user/profile`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add Bearer token for auth
@@ -32,7 +32,7 @@ export const signUpUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}user/register`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/register`,
         {
           method: "POST",
           headers: {
@@ -65,7 +65,7 @@ export const loginUser = createAsyncThunk(
   async (loginData, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}user/login`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/login`,
         {
           method: "POST",
           headers: {

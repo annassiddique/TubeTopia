@@ -26,7 +26,7 @@ const io = new Server(server, {
 connectDB();
 
 // Middleware for CORS and JSON request parsing
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 // Handling Socket.IO connections for real-time features

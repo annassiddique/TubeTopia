@@ -47,7 +47,7 @@ const PostVideoForm = ({ onClose }) => {
         try {
             const token = localStorage.getItem("authToken");
             const response = await axios.post(
-                `${import.meta.env.VITE_BACKEND_BASE_URL}api/videos`,
+                `${import.meta.env.VITE_BACKEND_BASE_URL}/api/videos`,
                 { title, url },
                 {
                     headers: {
