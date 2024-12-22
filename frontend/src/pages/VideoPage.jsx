@@ -4,6 +4,7 @@ import axios from "axios";
 import Sidebar from "../components/sidebar";
 import { useDispatch } from "react-redux";
 import { fetchVideoById } from "../redux/slices/videos/videoAPI";
+import Loading from "../components/Loading"
 
 const VideoPage = () => {
     const { id } = useParams(); // Get the video ID from the URL
@@ -32,7 +33,7 @@ const VideoPage = () => {
                 );
 
                 if (Array.isArray(response.data.videos)) {
-                    const filteredVideos = response.data.videos.filter((v) => v._id !== id); 
+                    const filteredVideos = response.data.videos.filter((v) => v._id !== id);
                     setSuggestedVideos(filteredVideos);
                 } else {
                     setError("Invalid response format from suggested videos API");
@@ -46,7 +47,7 @@ const VideoPage = () => {
 
         fetchVideoDetails();
         fetchSuggestedVideos();
-    }, [id]); 
+    }, [id]);
 
     const isYouTube = video?.url?.includes("youtu");
 
@@ -56,7 +57,7 @@ const VideoPage = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (error) {
