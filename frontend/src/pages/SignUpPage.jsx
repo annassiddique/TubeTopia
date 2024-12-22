@@ -49,16 +49,17 @@ const SignUpPage = () => {
         dispatch(loginUser(loginData)).then((action) => {
             if (action.meta.requestStatus === "fulfilled") {
                 dispatch(fetchUserInfo());
-                navigate("/vote");
+                navigate("/");
             }
         });
     };
 
     return (
-        <div className="md:h-[90vh] flex justify-center items-center">
+        <div className="md:h-[92.5vh] flex justify-center items-center">
+            {/* Desktop View */}
             <div className="hidden md:flex h-full relative">
                 <div
-                    className={`bg-[#222831] text-[#EEE] h-[400px] w-[350px] lg:w-[450px]
+                    className={`bg-gradient-to-br from-[#222831] via-[#282d37] via-[#2d333c] via-[#333842] to-[#393e48] text-[#EEE] h-[400px] w-[350px] lg:w-[450px]
                 z-[999] signup-transition-card-1 flex flex-col gap-3 justify-center items-center py-6 shadow-xl text-center
                 ${activeTransition ? "active-1" : ""}`}
                 >
@@ -129,7 +130,7 @@ const SignUpPage = () => {
                             </button>
                         </form>
                         {error && (
-                            <p className="text-red-500 font-spaceMono text-[0.7rem]">{error}</p>
+                            <p className="text-red-500 font-spaceMono text-[0.7rem]">{error !== "Failed to fetch user data" && error}</p>
                         )}
                         {success && (
                             <p className="text-[#85A98F] font-spaceMono text-[0.7rem]">{success}</p>
@@ -146,9 +147,10 @@ const SignUpPage = () => {
                     </>
                 </div>
             </div>
+            {/* Mobile View */}
             <div className="block md:hidden w-full ">
             <div
-                    className={`bg-[#222831] text-[#EEE] h-[400px] w-full
+                    className={`bg-gradient-to-br from-[#222831] via-[#282d37] via-[#2d333c] via-[#333842] to-[#393e48] text-[#EEE] h-[400px] w-full
                 z-[999] mobile-signup-transition-card-1 flex flex-col gap-3 justify-center items-center py-6 shadow-xl text-center
                 ${activeTransition ? "mobile-active-1" : ""}`}
                 >

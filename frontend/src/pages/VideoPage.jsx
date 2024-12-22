@@ -65,7 +65,7 @@ const VideoPage = () => {
 
     return (
         <div className="w-full min-h-[92.8vh] flex flex-col md:flex-row">
-            <div className="w-full flex flex-col justify-start items-center pt-5 md:pt-24">
+            <div className="w-full flex flex-col justify-start items-center px-3 pt-5 md:pt-24">
                 {isYouTube ? (
                     <iframe
                         src={`https://www.youtube.com/embed/${getYouTubeID(video?.url)}`}

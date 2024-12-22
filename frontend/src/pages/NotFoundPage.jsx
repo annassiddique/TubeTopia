@@ -11,7 +11,7 @@ const NotFoundPage = () => {
                 <div className="flex flex-col justify-center">
                     <h1 className="text-[3rem] font-spaceMono font-bold">404 - Page Not Found :(</h1>
                     <p className="font-spaceMono">The page you are looking for does not exist,{" "}
-                        <Link to={`/vote`} className="font-spaceMono font-semibold underline hover:text-[#76ABAE]">go back</Link>
+                        <Link to={`/`} className="font-spaceMono font-semibold underline hover:text-[#76ABAE]">go back</Link>
                     </p>
                 </div>
             </div>

@@ -35,7 +35,7 @@ const UserProfilePage = () => {
   };
 
   return (
-    <div className="p-4 flex flex-col md:grid gap-2  md:grid-cols-[1fr__2fr] md:h-[90vh]">
+    <div className="p-4 flex flex-col md:grid gap-2  md:grid-cols-[1fr__2fr] md:h-[92.5vh]">
       <div className="flex flex-col rounded-xl bg-[#222831] overflow-hidden">
         <div className="h-4/5 ">
           <div className="bg-[#31363F] flex justify-center items-center py-4 ">

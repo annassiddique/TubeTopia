@@ -12,7 +12,8 @@
 }
 
 body {
-  background-color: #eeeeee;
+  background-image: linear-gradient(to right bottom, #accfd1, #bed6de, #d1dde6, #e2e5ea, #eeeeee);
+  color: rgba(0, 0, 0, 0.836);
 }
 
 

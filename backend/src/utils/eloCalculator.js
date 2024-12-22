@@ -1,3 +1,4 @@
+// Function to calculate Elo scores
 const calculateElo = (eloA, eloB, winner) => {
   const K = 32; 
   const expectedA = 1 / (1 + Math.pow(10, (eloB - eloA) / 400));

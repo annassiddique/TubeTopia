@@ -14,6 +14,7 @@ import { fetchUserInfo } from "./redux/slices/user/userAPI";
 function App() {
   const dispatch = useDispatch();
 
+  // checking for token to auto-login users
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
@@ -21,11 +22,12 @@ function App() {
     }
   }, [dispatch]);
 
+  // Defined routes using react-router-dom, for quick navigation and protected routes 
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/vote" element={<VotingPage />} />
+        <Route path="/" element={<VotingPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/video/:id" element={<VideoPage />} />
         <Route path="/ranks" element={<RankPage />} />

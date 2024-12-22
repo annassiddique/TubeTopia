@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Sidebar = ({ suggestedVideos }) => {
     return (
-        <div className="border-l border-[#31363F] bg-[#31363F] text-white w-full md:w-2/4 pt-12 mt-7 md:mt-0 md:ml-2 p-4">
+        <div className="border-l border-[#31363F] bg-gradient-to-t from-[#222831] via-[#262b34] via-[#292f38] via-[#2d323b] to-[#31363f] text-white w-full md:w-2/4 pt-12 mt-7 md:mt-0 md:ml-2 p-4">
             <h3 className="text-xl font-semibold mb-4 font-raleway">Suggested Videos</h3>
             {suggestedVideos?.length > 0 ? (
                 <ul className="space-y-6">

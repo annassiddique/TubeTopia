@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../components/Table";
 import Loading from "../components/Loading";
+import io from "socket.io-client";
 
+// Connect to the Socket.IO server
+const socket = io.connect("http://localhost:5000");
 
 const RankPage = () => {
     const [videos, setVideos] = useState([]);
@@ -12,16 +15,14 @@ const RankPage = () => {
 
     const itemsPerPage = 15;
 
-    const fetchVideos = async () => {
+    const fetchVideos = async (page = currentPage) => {
         try {
             setLoading(true);
-            const page = Math.max(1, currentPage);
             const response = await axios.get(
                 `http://localhost:5000/api/votes/rankings?page=${page}&limit=${itemsPerPage}`
             );
 
             const { videos, totalPages } = response.data;
-
             setVideos(videos);
             setTotalPages(totalPages);
             setLoading(false);
@@ -32,29 +33,38 @@ const RankPage = () => {
     };
 
     useEffect(() => {
-        // Fetch initial data
         fetchVideos();
+        socket.on("voteUpdate", (data) => {
+            console.log("Vote update received:", data);
+            fetchVideos();
+        });
 
-    }, [currentPage]);
+        return () => {
+            socket.off("voteUpdate");
+        };
+    }, []); 
 
     const paginate = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
+            fetchVideos(pageNumber);
         }
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 py-10 px-5">
-            <h1 className=" text-2xl md:text-4xl font-bold mb-6 text-center text-[#222831] font-spaceMono">
+        <div className="min-h-screen  py-10 px-5">
+            <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center text-[#222831] font-spaceMono">
                 Top-Rated Videos
             </h1>
 
-            {loading && (
-                <Loading classes={"h-[80vh]"} />
-            )}
+            {loading && <Loading classes={"h-[80vh]"} />}
 
             {!loading && videos.length > 0 && (
-                <Table videos={videos} currentPage={currentPage} itemsPerPage={itemsPerPage} />
+                <Table
+                    videos={videos}
+                    currentPage={currentPage}
+                    itemsPerPage={itemsPerPage}
+                />
             )}
 
             {/* Pagination */}
@@ -67,14 +77,13 @@ const RankPage = () => {
                     Previous
                 </button>
 
-                {/* Page numbers */}
                 {[...Array(totalPages).keys()].map((_, index) => (
                     <button
                         key={index}
                         onClick={() => paginate(index + 1)}
                         className={`px-4 py-2 mx-2 rounded-md ${currentPage === index + 1
-                            ? "bg-[#222831] text-white"
-                            : " text-[#222831]"
+                                ? "bg-[#222831] text-white"
+                                : "text-[#222831]"
                             }`}
                     >
                         {index + 1}

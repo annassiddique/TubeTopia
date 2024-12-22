@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import VotingCard from "../components/VotingCard";
 import { fetchVideos, postVote, resetRounds } from "../redux/slices/vote/votesSlice";
 import Loading from "../components/Loading";
+import HoverEffectWrapper from "../components/HoverEffectWrapper";
 
 const VotingPage = () => {
     const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const VotingPage = () => {
     if (status === "failed") return <div>Error: {error}</div>;
 
     return (
-        <div className="min-h-[90vh] flex flex-col items-center justify-center mt-12 md:mt-0">
+        <div className="min-h-[92.5vh] flex flex-col items-center justify-center mt-12 md:mt-0">
             {!votingLimitReached && (
                 <h1 className=" text-2xl md:text-4xl font-bold mb-8 text-gray-800 font-spaceMono">
                     {user ? `Vote` : `Round ${currentRound} / ${maxRounds}`}
@@ -89,18 +90,24 @@ const VotingPage = () => {
             )}
 
             {votingLimitReached && !user && (
-                <div className="text-center mb-8 shadow-[1px_3px_6px_0px_rgba(0,_0,_0,_0.2)] rounded-lg p-4 px-6">
+                <div className="text-center mb-8 shadow-[1px_3px_6px_0px_rgba(0,_0,_0,_0.2)] rounded-lg py-7 px-6">
                     <h3 className="text-xl font-spaceMono font-bold">You've reached the voting limit</h3>
                     <p className="text-base text-gray-600">
                         Please wait 2 hours or log in to continue voting.
                     </p>
-                    <button
-                        onClick={() => navigate("/signup")}
-                        className="bg-[#222831] text-white font-semibold font-spaceMono border-2 border-[#222831]
-                         py-2 px-4 rounded-md hover:bg-[#EEE] hover:text-[#222831] hover:shadow-[1px_3px_6px_0px_rgba(0,_0,_0,_0.2)] transition delay-150 ease-in-out mt-4"
-                    >
-                        Login / Sign Up
-                    </button>
+                    <HoverEffectWrapper>
+                        <button
+                            onClick={() => navigate("/signup")}
+                            className="bg-[#222831] text-white font-semibold font-spaceMono border-2 border-[#222831] w-full
+                        py-2 px-4 rounded-md hover:bg-[#EEE] hover:text-[#222831] hover:shadow-[1px_3px_6px_0px_rgba(0,_0,_0,_0.2)] transition delay-150 ease-in-out mt-4"
+                            style={{
+                                transform: "translateZ(75px)",
+                                transformStyle: "preserve-3d",
+                            }}
+                        >
+                            Login / Sign Up
+                        </button>
+                    </HoverEffectWrapper>
                 </div>
             )}
 

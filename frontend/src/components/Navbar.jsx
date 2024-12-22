@@ -7,7 +7,7 @@ import Avatar from './Avatar';
 const navLinks = [
     {
         name: "Vote",
-        link: "/vote",
+        link: "/",
         id: 1,
     },
     {

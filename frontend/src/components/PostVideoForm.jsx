@@ -17,7 +17,11 @@ const PostVideoForm = ({ onClose }) => {
             name: "Video Title",
             type: "text",
             value: title,
-            onChange: (e) => setTitle(e.target.value),
+            onChange: (e) => {
+                if (e.target.value.length <= 50) {
+                    setTitle(e.target.value);
+                }
+            },
             id: 1,
         },
         {
@@ -76,7 +80,7 @@ const PostVideoForm = ({ onClose }) => {
                         />
                     </div>
                 ))}
-                <div className="flex justify-between gap-2 w-full mt-7">
+                <div className="flex justify-between font-spaceMono font-semibold gap-2 w-full mt-7">
                     <button
                         type="button"
                         onClick={onClose}

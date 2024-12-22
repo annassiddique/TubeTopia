@@ -2,15 +2,16 @@ const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 const User = require("../models/User");
 
+// Create a transporter object using SMTP for sending emails (configured for Gmail in this case)
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Use your email provider (e.g., Gmail, Outlook, etc.)
+  service: "gmail", // Using email provider 
   auth: {
-    user: process.env.EMAIL_USER, // Your email address from environment variables
-    pass: process.env.EMAIL_PASS, // Your email password or app password
+    user: process.env.EMAIL_USER, 
+    pass: process.env.EMAIL_PASS, 
   },
 });
 
-// Email template function
+// Email template function that generates the email content
 const generateEmailTemplate = (userName) => `
     <div style="font-family: 'Roboto', sans-serif; text-align: center; padding: 20px; border: 2px dashed #222831; border-radius: 15px;  margin: auto; background: linear-gradient(to bottom right, #eee, #cecfd1);">
     <h1 style="color: #222831; font-size: 28px; margin-bottom: 10px;">Hello ${userName} 👋</h1>
@@ -31,29 +32,32 @@ const generateEmailTemplate = (userName) => `
     </div>
 `;
 
+// Function to send reminder emails to all users
 const sendEmailsToAllUsers = async () => {
   try {
-    const users = await User.find();
+    const users = await User.find(); // Fetch all users from the database
 
+    // Send an email to each user
     users.forEach(async (user) => {
       const mailOptions = {
         from: process.env.EMAIL_USERNAME,
         to: user.email,
         subject: "Time to Cast Your Vote! 🗳️",
-        html: generateEmailTemplate(user.name || "Valued User"),
+        html: generateEmailTemplate(user.name || "User"), // Use generated email template
       };
 
-      await transporter.sendMail(mailOptions);
+      await transporter.sendMail(mailOptions); 
       console.log(`Email sent to ${user.email}`);
     });
   } catch (error) {
-    console.error("Error sending emails:", error.message);
+    console.error("Error sending emails:", error.message); 
   }
 };
 
+// Cron job that runs every 4 hours to send reminder emails
 cron.schedule("0 0 */4 * *", () => {
   console.log("Running email reminder job...");
-  sendEmailsToAllUsers();
+  sendEmailsToAllUsers(); // Trigger the email sending function
 });
 
 module.exports = { sendEmailsToAllUsers };
