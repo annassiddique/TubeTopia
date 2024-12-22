@@ -5,7 +5,7 @@ import Loading from "../components/Loading";
 import io from "socket.io-client";
 
 // Connect to the Socket.IO server
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect(`${import.meta.env.VITE_BACKEND_IO_URL}`);
 
 const RankPage = () => {
     const [videos, setVideos] = useState([]);
@@ -19,7 +19,7 @@ const RankPage = () => {
         try {
             setLoading(true);
             const response = await axios.get(
-                `http://localhost:5000/api/votes/rankings?page=${page}&limit=${itemsPerPage}`
+                `${import.meta.env.VITE_BACKEND_BASE_URL}votes/rankings?page=${page}&limit=${itemsPerPage}`
             );
 
             const { videos, totalPages } = response.data;

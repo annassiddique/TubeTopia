@@ -6,7 +6,7 @@ export const addVideo = createAsyncThunk(
   async (videoData, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch("http://localhost:5000/api/videos", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}videos`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ export const fetchVideoById = createAsyncThunk(
   async (videoId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/videos/${videoId}`
+        `${import.meta.env.VITE_BACKEND_BASE_URL}videos/${videoId}`
       );
 
       const data = await response.json();
@@ -54,7 +54,7 @@ export const deleteVideo = createAsyncThunk(
     try {
       const token = localStorage.getItem("authToken");
       const response = await fetch(
-        `http://localhost:5000/api/videos/${videoId}`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}videos/${videoId}`,
         {
           method: "DELETE",
           headers: {

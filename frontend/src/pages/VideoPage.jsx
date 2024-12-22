@@ -28,7 +28,7 @@ const VideoPage = () => {
         const fetchSuggestedVideos = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5000/api/votes/rankings?page=1&limit=8`
+                    `${import.meta.env.VITE_BACKEND_BASE_URL}votes/rankings?page=1&limit=8`
                 );
 
                 if (Array.isArray(response.data.videos)) {
