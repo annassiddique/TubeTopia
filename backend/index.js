@@ -18,8 +18,7 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    // origin: "https://tube-topia.surge.sh", // Allowing frontend requests from this origin
-    origin: "http://localhost:5173", // Allowing frontend requests from this origin
+    origin: "https://tube-topia.surge.sh", // Allowing frontend requests from this origin
   },
 });
 
@@ -27,8 +26,7 @@ const io = new Server(server, {
 connectDB();
 
 // Middleware for CORS and JSON request parsing
-// app.use(cors({ origin: "https://tube-topia.surge.sh" }));
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://tube-topia.surge.sh" }));
 app.use(express.json());
 
 // Handling Socket.IO connections for real-time features
