@@ -4,6 +4,7 @@ import Input from "./Input";
 import { fetchUserInfo } from "../redux/slices/user/userAPI";
 import { useDispatch } from "react-redux";
 import Overlay from "./Overlay";
+import GlowEffectWrapper from "./GlowEffectWrapper";
 
 const PostVideoForm = ({ onClose }) => {
     const [title, setTitle] = useState("");
@@ -47,7 +48,7 @@ const PostVideoForm = ({ onClose }) => {
         try {
             const token = localStorage.getItem("authToken");
             const response = await axios.post(
-                `${import.meta.env.VITE_BACKEND_BASE_URL}/api/videos`,
+                `${import.meta.env.VITE_BACKEND_BASE_URL}/videos`,
                 { title, url },
                 {
                     headers: {
@@ -67,36 +68,36 @@ const PostVideoForm = ({ onClose }) => {
 
     return (
         <Overlay onClose={onClose}>
-            <h2 className="text-2xl font-bold mb-4 font-spaceMono">Post a Video</h2>
-            {error && <p className="text-red-500 mb-4">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                {inputs.map((input) => (
-                    <div className="mb-5" key={input.id}>
-                        <Input
-                            label={input.name}
-                            type={input.type}
-                            value={input.value}
-                            onChange={input.onChange}
-                        />
+                <h2 className="text-2xl font-bold mb-4 font-spaceMono">Post a Video</h2>
+                {error && <p className="text-red-500 mb-4">{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    {inputs.map((input) => (
+                        <div className="mb-5" key={input.id}>
+                            <Input
+                                label={input.name}
+                                type={input.type}
+                                value={input.value}
+                                onChange={input.onChange}
+                            />
+                        </div>
+                    ))}
+                    <div className="flex justify-between font-spaceMono font-semibold gap-2 w-full mt-7">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="mr-4 bg-[#76ABAE] text-white px-4 py-2 rounded hover:bg-[#5f898b] w-2/4 z-50"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            className="bg-[#31363F] text-white px-4 py-2 rounded hover:bg-[#24272e] w-2/4 z-50"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Submitting..." : "Submit"}
+                        </button>
                     </div>
-                ))}
-                <div className="flex justify-between font-spaceMono font-semibold gap-2 w-full mt-7">
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="mr-4 bg-[#76ABAE] text-white px-4 py-2 rounded hover:bg-[#5f898b] w-2/4"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-                        className="bg-[#31363F] text-white px-4 py-2 rounded hover:bg-[#24272e] w-2/4"
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? "Submitting..." : "Submit"}
-                    </button>
-                </div>
-            </form>
+                </form>
         </Overlay>
     );
 };

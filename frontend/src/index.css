@@ -12,11 +12,18 @@
 }
 
 body {
-  background-image: linear-gradient(to right bottom, #accfd1, #bed6de, #d1dde6, #e2e5ea, #eeeeee);
-  color: rgba(0, 0, 0, 0.836);
+  /* background-image: linear-gradient(to right bottom, #accfd1, #bed6de, #d1dde6, #e2e5ea, #eeeeee); */
+  color: rgba(252, 247, 247, 0.836);
+  /* background: #747d8c; */
+  background-image: linear-gradient(
+    to right bottom,
+    #747d8c,
+    #6c7584,
+    #656d7b,
+    #5d6573,
+    #565d6b
+  );
 }
-
-
 
 .signup-transition-card-1 {
   position: absolute;
@@ -60,7 +67,6 @@ body {
   transform: translate(100%, 50%);
 }
 
-
 .mobile-signup-transition-card-1 {
   position: absolute;
   top: 70px;
@@ -74,7 +80,7 @@ body {
 
 .mobile-signup-transition-card-2 {
   position: absolute;
-  bottom: 15px;
+  bottom: 0px;
   border-bottom-right-radius: 0px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 15px;
@@ -97,4 +103,22 @@ body {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   transform: translateY(-100%);
+}
+
+.group:hover .absolute {
+  opacity: 1;
+}
+
+.absolute {
+  opacity: 0;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+
+  /* For Webkit browsers like Chrome, Safari, etc. */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

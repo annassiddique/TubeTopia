@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import GlowEffectWrapper from './GlowEffectWrapper'
+import HoverEffectWrapper from './HoverEffectWrapper'
 
 const Sidebar = ({ suggestedVideos }) => {
     return (
@@ -8,16 +10,27 @@ const Sidebar = ({ suggestedVideos }) => {
             {suggestedVideos?.length > 0 ? (
                 <ul className="space-y-6">
                     {suggestedVideos?.map((suggestedVideo) => (
-                        <li key={suggestedVideo._id} className="mb-4 border-2 rounded-md p-3 hover:border-[#a8a1a1] overflow-hidden hover:shadow transition">
-                            <Link to={`/video/${suggestedVideo._id}`} className="text-[#fff] hover:text-[#76ABAE] ">
-                                <div className="flex space-x-4">
-                                    <div>
-                                        <h4 className=" text-sm sm:text-lg font-bold  lg:max-w-[280px]  font-spaceMono  truncate">{suggestedVideo.title}</h4>
-                                        <p className="text-sm font-raleway  truncate">{Math.floor(suggestedVideo.elo_score)}</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        </li>
+                        <HoverEffectWrapper>
+                            <li key={suggestedVideo._id} 
+                            className="mb-4 border-2 rounded-md  hover:border-[#a8a1a1] overflow-hidden hover:shadow transition"
+                            style={{
+                                transform: "translateZ(75px)",
+                                transformStyle: "preserve-3d",
+                            }}
+                            >
+                                <GlowEffectWrapper classes={"p-3"}>
+                                    <Link to={`/video/${suggestedVideo._id}`} className="text-[#fff] hover:text-[#89c4c7] ">
+                                        <div className="flex space-x-4">
+                                            <div>
+                                                <h4 className=" text-sm sm:text-lg font-bold  lg:max-w-[280px] xl:max-w-[97%] font-spaceMono truncate">{suggestedVideo.title}</h4>
+                                                <p className="text-sm font-raleway  truncate">{Math.floor(suggestedVideo.elo_score)}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </GlowEffectWrapper>
+                            </li>
+
+                        </HoverEffectWrapper>
                     ))}
                 </ul>
             ) : (

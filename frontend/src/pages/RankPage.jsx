@@ -3,6 +3,8 @@ import axios from "axios";
 import Table from "../components/Table";
 import Loading from "../components/Loading";
 import io from "socket.io-client";
+import GlowEffectWrapper from "../components/GlowEffectWrapper"
+import HoverEffectWrapper from "../components/HoverEffectWrapper";
 
 // Connect to the Socket.IO server
 const socket = io.connect(`${import.meta.env.VITE_BACKEND_IO_URL}`);
@@ -42,7 +44,7 @@ const RankPage = () => {
         return () => {
             socket.off("voteUpdate");
         };
-    }, []); 
+    }, []);
 
     const paginate = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
@@ -53,50 +55,71 @@ const RankPage = () => {
 
     return (
         <div className="min-h-screen  py-10 px-5">
-            <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center text-[#222831] font-spaceMono">
+            <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center text-[#EEE] font-spaceMono">
                 Top-Rated Videos
             </h1>
 
             {loading && <Loading classes={"h-[80vh]"} />}
 
             {!loading && videos.length > 0 && (
-                <Table
-                    videos={videos}
-                    currentPage={currentPage}
-                    itemsPerPage={itemsPerPage}
-                />
+                <GlowEffectWrapper classes={"rounded-xl"}>
+                    <Table
+                        videos={videos}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                    />
+                </GlowEffectWrapper>
             )}
 
             {/* Pagination */}
-            <div className="flex justify-center mt-6 font-spaceMono">
-                <button
-                    onClick={() => paginate(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 mx-2 bg-[#31363F] text-white rounded-md disabled:bg-gray-400"
-                >
-                    Previous
-                </button>
+            <div className="flex justify-center mt-6 mx-auto font-spaceMono">
+                <HoverEffectWrapper classes={"!w-auto"}>
+                    <button
+                        style={{
+                            transform: "translateZ(75px)",
+                            transformStyle: "preserve-3d",
+                        }}
+                        onClick={() => paginate(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 mx-2 bg-[#31363F] text-white rounded-md disabled:bg-gray-400"
+                    >
+                        Previous
+                    </button>
+                </HoverEffectWrapper>
 
                 {[...Array(totalPages).keys()].map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => paginate(index + 1)}
-                        className={`px-4 py-2 mx-2 rounded-md ${currentPage === index + 1
-                                ? "bg-[#222831] text-white"
-                                : "text-[#222831]"
-                            }`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
+                    <HoverEffectWrapper classes={"!w-auto"}>
 
-                <button
-                    onClick={() => paginate(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 mx-2 bg-[#31363F] text-white rounded-md disabled:bg-gray-400"
-                >
-                    Next
-                </button>
+                        <button
+                            style={{
+                                transform: "translateZ(75px)",
+                                transformStyle: "preserve-3d",
+                            }}
+                            key={index}
+                            onClick={() => paginate(index + 1)}
+                            className={`px-4 py-2 mx-2 rounded-md ${currentPage === index + 1
+                                ? "bg-[#222831] text-white"
+                                : "text-[#EEE]"
+                                }`}
+                        >
+                            {index + 1}
+                        </button>
+                    </HoverEffectWrapper>
+                ))}
+                <HoverEffectWrapper classes={"!w-auto"}>
+
+                    <button
+                        style={{
+                            transform: "translateZ(75px)",
+                            transformStyle: "preserve-3d",
+                        }}
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 mx-2 bg-[#31363F] text-white rounded-md disabled:bg-gray-400"
+                    >
+                        Next
+                    </button>
+                </HoverEffectWrapper>
             </div>
         </div>
     );

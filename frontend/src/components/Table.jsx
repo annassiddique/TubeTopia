@@ -34,7 +34,8 @@ const Table = ({ videos, currentPage, itemsPerPage, showAction, onDeleteVideo })
                 </thead>
                 <tbody>
                     {videos.map((video, index) => (
-                        <tr key={video._id} className="border-b hover:bg-gray-100 hover:shadow-[1px_9px_6px_0px_rgba(0,_0,_0,_0.1)] font-semibold font-spaceMono">
+                        <tr key={video._id} className="border-b hover:bg-gray-100 hover:shadow-[1px_9px_6px_0px_rgba(0,_0,_0,_0.1)] 
+                        font-semibold font-spaceMono text-[#222831]">
 
                             <td className="py-2 px-4">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                             <HoverEffectWrapper>
@@ -78,13 +79,13 @@ const Table = ({ videos, currentPage, itemsPerPage, showAction, onDeleteVideo })
                     <p className="mb-4 font-raleway">Are you sure you want to delete the video "{selectedVideo.title}"?</p>
                     <div className="flex w-full font-semibold font-spaceMono items-center gap-4">
                         <button
-                            className="mr-4 bg-[#76ABAE] text-white px-4 py-2 rounded hover:bg-[#5f898b] w-[50%]"
+                            className="mr-4 bg-[#76ABAE] text-white px-4 py-2 rounded hover:bg-[#5f898b] w-[50%] z-50"
                             onClick={cancelDelete}
                         >
                             Cancel
                         </button>
                         <button
-                            className="bg-red-500 hover:bg-red-800 w-[50%] text-white py-2 px-4 rounded"
+                            className="bg-red-500 hover:bg-red-800 w-[50%] text-white py-2 px-4 rounded z-50"
                             onClick={confirmDelete}
                         >
                             Delete

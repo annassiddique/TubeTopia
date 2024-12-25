@@ -32,7 +32,7 @@ const Navbar = () => {
             {/* Logo */}
             <Link
                 to="/"
-                className="font-spaceMono text-lg sm:text-3xl italic font-bold"
+                className="font-spaceMono text-lg sm:text-3xl  font-bold"
             >
                 TubeTopia
             </Link>

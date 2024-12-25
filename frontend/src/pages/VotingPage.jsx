@@ -6,6 +6,7 @@ import { fetchVideos, postVote, resetRounds } from "../redux/slices/vote/votesSl
 import Loading from "../components/Loading";
 import HoverEffectWrapper from "../components/HoverEffectWrapper";
 import Error from "../components/Error";
+import GlowEffectWrapper from "../components/GlowEffectWrapper";
 
 const VotingPage = () => {
     const dispatch = useDispatch();
@@ -85,15 +86,15 @@ const VotingPage = () => {
     return (
         <div className="min-h-[92.5vh] flex flex-col items-center justify-center mt-12 md:mt-0">
             {!votingLimitReached && (
-                <h1 className=" text-2xl md:text-4xl font-bold mb-8 text-gray-800 font-spaceMono">
+                <h1 className=" text-2xl md:text-4xl font-bold mb-8 text-[#EEE] font-spaceMono">
                     {user ? `Vote` : `Round ${currentRound} / ${maxRounds}`}
                 </h1>
             )}
 
             {votingLimitReached && !user && (
-                <div className="text-center mb-8 shadow-[1px_3px_6px_0px_rgba(0,_0,_0,_0.2)] rounded-lg py-7 px-6">
+                <GlowEffectWrapper classes="text-center mb-8 shadow-[1px_3px_6px_0px_rgba(0,_0,_0,_0.2)] rounded-lg py-7 px-6 bg-[#57606f]">
                     <h3 className="text-xl font-spaceMono font-bold">You've reached the voting limit</h3>
-                    <p className="text-base text-gray-600">
+                    <p className="text-base text-gray-300">
                         Please wait 2 hours or log in to continue voting.
                     </p>
                     <HoverEffectWrapper>
@@ -109,7 +110,7 @@ const VotingPage = () => {
                             Login / Sign Up
                         </button>
                     </HoverEffectWrapper>
-                </div>
+                </GlowEffectWrapper>
             )}
 
             {!votingLimitReached && videoA && videoB && (
